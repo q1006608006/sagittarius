@@ -1,0 +1,43 @@
+{
+    "target":"url",
+    "type":"json",
+    "filters": [
+        {
+            "peek":"id",
+            "defaultValue":"akb",
+            "focus": {
+                "type":"regex",
+                "target":"[\\s\\S]*\\[id=\"([\\s\\S]*?)\"\\][\\s\\S]*",
+                "key":"[$1]",
+                "defaultValue":"akb",
+                "interceptor":{
+                    "type":"list",
+                    "target":"@-",
+                    "interceptor":{
+                        "type":"list",
+                        "target":"regex[a]",
+                        "key":"fire!!!",
+                        "interceptor":{
+                            "type":"list",
+                            "target":"regex[b]",
+                            "key":"more fire!!!"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "peek":"value",
+            "defaultValue":"NaN",
+            "focus": {
+                "type":"test",
+                "target":"regex[[\\S]* (\\S+)fuck(\\S+) [\\s\\S]*]",
+                "key":"$matches_[\\s\\S]*fuck[\\s\\S]*>>[$1 fuck $2 >{$id}<]"
+            }
+        }
+    ],
+    "category":{
+        "location":"taobao",
+        "id":""
+    }
+}

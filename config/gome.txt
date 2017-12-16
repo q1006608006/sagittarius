@@ -1,0 +1,5 @@
+搜索输入推荐接口：
+url:http://api.search.gome.com.cn/p/suggest?from=headSearch&query={搜索词}
+response-type:json
+example:{"req":"https://suggest.taobao.com/sug?code=utf-8&q=小米","target":[["小米",526,0,[["自营","自营",1112],["手机","cat10000070",648],["平板电视","cat10000049",283]]],["小米",526,1,{"cat":["手机","cat10000070",295,"手机通讯","cat10000012"]}]]}
+
