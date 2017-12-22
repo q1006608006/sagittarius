@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/griddle/griddle.iml" filepath="$PROJECT_DIR$/griddle/griddle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uav/interface.iml" filepath="$PROJECT_DIR$/uav/interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/sagittarius.iml" filepath="$PROJECT_DIR$/sagittarius.iml" />
       <module fileurl="file://$PROJECT_DIR$/uav/uav.iml" filepath="$PROJECT_DIR$/uav/uav.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uav-consumer/uav-consumer.iml" filepath="$PROJECT_DIR$/uav-consumer/uav-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uav-interface/uav-interface.iml" filepath="$PROJECT_DIR$/uav-interface/uav-interface.iml" />
     </modules>
   </component>
 </project>

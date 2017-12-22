@@ -8,5 +8,7 @@
     <dubbo:registry address="zookeeper://badtheway.xin:2181" check="false" subscribe="false" register=""></dubbo:registry>
     <dubbo:protocol name="dubbo" port="20881" />
 
-    <dubbo:service interface="test.TestService" class="test.TestServiceImpl"/>
+<!--   test bean: <dubbo:service interface="test.TestService" class="test.TestServiceImpl"/>-->
+    <dubbo:service interface="top.ivan.sagittarius.uav.service.TestService" class="test.TestServiceImpl"/>
+    <dubbo:service interface="top.ivan.sagittarius.uav.service.MessageController" class="top.ivan.sagittarius.uav.service.impl.MessageControllerImpl"/>
 </beans>

@@ -8,12 +8,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="griddle" />
         <module name="uav" />
+        <module name="uav-consumer" />
+        <module name="uav-interface" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="griddle" target="1.8" />
       <module name="sagittarius" target="1.8" />
       <module name="uav" target="1.8" />
+      <module name="uav-consumer" target="1.8" />
+      <module name="uav-interface" target="1.8" />
+      <module name="uavinterface" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

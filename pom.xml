@@ -11,6 +11,8 @@
     <modules>
         <module>griddle</module>
         <module>uav</module>
+        <module>uav-interface</module>
+        <module>uav-consumer</module>
     </modules>
 
     <properties>
@@ -101,6 +103,19 @@
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5-pre10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.10</version>
         </dependency>
     </dependencies>
 
