@@ -1,4 +1,4 @@
-package top.ivan.sagittarius.uav.service.impl;
+package top.ivan.sagittarius.uav.impl.service;
 
 import top.ivan.sagittarius.uav.service.MessageController;
 import top.ivan.sagittarius.uav.vo.Message;
@@ -30,8 +30,4 @@ public class MessageControllerImpl implements MessageController {
         return true;
     }
 
-    @Override
-    public boolean validate(String queueId, Message message) {
-        return true;
-    }
 }
