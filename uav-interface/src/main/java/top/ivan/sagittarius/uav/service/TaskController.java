@@ -4,10 +4,10 @@ import top.ivan.sagittarius.uav.vo.TaskMessage;
 
 public interface TaskController {
 
-    TaskMessage takeTask();
+    TaskMessage takeTask(String topicId);
 
-    boolean completeTask(TaskMessage task);
+    boolean completeTask(String topicId,TaskMessage task);
 
-    boolean putTask(TaskMessage task);
+    boolean putTask(String topicId,TaskMessage task);
 
 }

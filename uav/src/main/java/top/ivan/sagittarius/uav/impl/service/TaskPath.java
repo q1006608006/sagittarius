@@ -8,4 +8,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TaskPath {
     String value();
+    String cache() default "$_cache";
 }
