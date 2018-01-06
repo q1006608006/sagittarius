@@ -15,19 +15,29 @@ public abstract class AbstractTaskProvider implements TaskProvider {
     TaskControllerManager taskControllerManager;
 
     String topicId;
+    String cacheTopicId;
 
     public AbstractTaskProvider(Class<? extends TaskProvider> provider) {
         TaskPath t = provider.getAnnotation(TaskPath.class);
         if(null != t && t.value().trim().length() > 0) {
             topicId = t.value();
+            cacheTopicId = t.cache().replace("$",topicId);
         } else {
             topicId = provider.getCanonicalName();
+            cacheTopicId = topicId + "_cache";
         }
         taskControllerManager.registerProvider(this);
     }
 
 
-    public static void main(String[] args) {
-        new Thread(()-> System.out.println("adiao should pay a computer for ivan")).start();
+    @Override
+    public String getTopicId() {
+        return topicId;
     }
+
+    @Override
+    public String getCacheTopicId() {
+        return cacheTopicId;
+    }
+
 }

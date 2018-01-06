@@ -6,6 +6,8 @@ public interface TaskProvider {
 
     String getTopicId();
 
+    String getCacheTopicId();
+
     TaskMessage getTask();
 
     boolean putTask(TaskMessage task);
