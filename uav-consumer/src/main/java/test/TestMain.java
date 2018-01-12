@@ -2,6 +2,7 @@ package test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import top.ivan.sagittarius.uav.service.MessageController;
+import top.ivan.sagittarius.uav.service.TaskController;
 import top.ivan.sagittarius.uav.service.TestService;
 import top.ivan.sagittarius.uav.vo.Message;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
@@ -13,7 +14,11 @@ public class TestMain {
     public static void main(String[] args) throws InterruptedException {
         TestService testService;
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:application-consume.xml");
+        TaskController taskController = (TaskController) context.getBean("taskController");
 
+        TaskMessage message = taskController.takeTask("topicDDL");
+        taskController.completeTask("topicDDL",message);
+/*
         long st = System.currentTimeMillis();
 
         testService = (TestService) context.getBean("testApiImpl");
@@ -67,6 +72,7 @@ public class TestMain {
         et = System.currentTimeMillis();
         System.out.println("cost time: " + (st - et));
         st = et;
+*/
 
     }
 }

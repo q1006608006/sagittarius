@@ -9,4 +9,5 @@ import java.lang.annotation.*;
 public @interface TaskPath {
     String value();
     String cache() default "$_cache";
+    long recycle() default 1000 * 60 * 5;
 }

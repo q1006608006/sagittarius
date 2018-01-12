@@ -10,6 +10,8 @@ public interface TaskProvider {
 
     TaskMessage getTask();
 
+    long getTimeout();
+
     boolean putTask(TaskMessage task);
 
     boolean completeTask(TaskMessage task);

@@ -5,21 +5,18 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
-@Component
-@TaskPath("redisTaskProvider")
-public class RedisTaskProvider extends AbstractTaskProvider {
+public abstract class AbsRedisTaskProvider extends AbstractTaskProvider {
 
     @Autowired
     private RedisTemplate<String,TaskMessage> redisTemplate;
 
-    public RedisTaskProvider() {
-        super(RedisTaskProvider.class);
+    public AbsRedisTaskProvider(Class<? extends TaskProvider> provider) {
+        super(provider);
     }
 
     @Override
     public TaskMessage getTask() {
         TaskMessage task = redisTemplate.opsForList().rightPop(getTopicId());
-        redisTemplate.opsForHash().put(getCacheTopicId(),task.getTaskId(),task);
         return task;
     }
 
@@ -28,8 +25,4 @@ public class RedisTaskProvider extends AbstractTaskProvider {
         return redisTemplate.opsForList().leftPush(getTopicId(),task) > 0;
     }
 
-    @Override
-    public boolean completeTask(TaskMessage task) {
-        return redisTemplate.opsForHash().delete(getCacheTopicId(),task.getTaskId()) > 0;
-    }
 }

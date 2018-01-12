@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class TestMain {
     public static void main(String[] args) throws IOException {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {"classpath*:spring/application-provider.xml"});
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {"classpath*:spring/application-*.xml"});
         applicationContext.start();
         System.in.read();
     }
