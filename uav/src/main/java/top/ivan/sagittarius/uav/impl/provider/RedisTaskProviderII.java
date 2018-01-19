@@ -1,7 +1,8 @@
-package top.ivan.sagittarius.uav.impl.service;
+package top.ivan.sagittarius.uav.impl.provider;
 
 
 import org.springframework.stereotype.Component;
+import top.ivan.sagittarius.uav.provider.TaskPath;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
 @Component

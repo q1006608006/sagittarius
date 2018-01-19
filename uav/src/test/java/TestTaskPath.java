@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import top.ivan.sagittarius.uav.impl.service.RedisTaskProviderII;
+import top.ivan.sagittarius.uav.impl.provider.RedisTaskProviderII;
 import top.ivan.sagittarius.uav.impl.service.TaskControllerManager;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
@@ -23,12 +23,13 @@ public class TestTaskPath {
 
     @Test
     public void test1() {
+        System.out.println(taskControllerManager.cacheOperator);
 //        redisTaskProviderII.putTask(new TaskMessage("hahaheiheihoho"));
-        taskControllerManager.putTask("topicDDL",new TaskMessage("abcde"));
+/*        taskControllerManager.putTask("topicDDL",new TaskMessage("abcde"));
         TaskMessage message = taskControllerManager.takeTask("topicDDL");
         System.out.println(message.getMessage());
         System.out.println(taskControllerManager.completeTask("topicDDL",message));
-        System.out.println(message.getClass());
+        System.out.println(message.getClass());*/
     }
 
 

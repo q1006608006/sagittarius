@@ -1,8 +1,9 @@
-package top.ivan.sagittarius.uav.impl.service;
+package top.ivan.sagittarius.uav.impl.provider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
+import top.ivan.sagittarius.uav.provider.AbstractTaskProvider;
+import top.ivan.sagittarius.uav.provider.TaskProvider;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
 public abstract class AbsRedisTaskProvider extends AbstractTaskProvider {

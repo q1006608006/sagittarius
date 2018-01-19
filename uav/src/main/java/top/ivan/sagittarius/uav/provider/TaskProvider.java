@@ -1,4 +1,4 @@
-package top.ivan.sagittarius.uav.impl.service;
+package top.ivan.sagittarius.uav.provider;
 
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 

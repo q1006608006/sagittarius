@@ -3,6 +3,7 @@ package top.ivan.sagittarius.uav.impl.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.ivan.sagittarius.uav.cache.CacheOperator;
+import top.ivan.sagittarius.uav.provider.TaskProvider;
 import top.ivan.sagittarius.uav.service.TaskController;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
@@ -13,9 +14,9 @@ import java.util.Map;
 public class TaskControllerManager implements TaskController {
 
     @Autowired
-    private CacheOperator<String, TaskMessageEx> cacheOperator;
+    public CacheOperator<String, TaskMessageEx> cacheOperator;
 
-    protected final boolean registerProvider(TaskProvider provider) {
+    public final boolean registerProvider(TaskProvider provider) {
         if (taskProviderMap.containsKey(provider.getTopicId())) {
             return false;
         }

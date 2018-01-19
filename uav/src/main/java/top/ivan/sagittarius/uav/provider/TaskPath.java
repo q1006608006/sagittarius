@@ -1,4 +1,4 @@
-package top.ivan.sagittarius.uav.impl.service;
+package top.ivan.sagittarius.uav.provider;
 
 
 import java.lang.annotation.*;
@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 public @interface TaskPath {
     String value();
     String cache() default "$_cache";
-    long recycle() default 1000 * 60 * 5;
+    long recycle() default -1;
 }

@@ -1,10 +1,9 @@
-package top.ivan.sagittarius.uav.impl.service;
+package top.ivan.sagittarius.uav.provider;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-import top.ivan.sagittarius.uav.service.TaskController;
+import top.ivan.sagittarius.uav.impl.service.TaskControllerManager;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
 public abstract class AbstractTaskProvider implements TaskProvider,InitializingBean {

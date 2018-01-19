@@ -13,6 +13,7 @@
         <module>uav</module>
         <module>uav-interface</module>
         <module>uav-consumer</module>
+        <module>griddle-provider</module>
     </modules>
 
     <properties>
@@ -131,4 +132,24 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <redis.ip>badtheway.xin</redis.ip>
+                <redis.port>6379</redis.port>
+                <redis.auth>qaz103103</redis.auth>
+                <redis.timeout>5000</redis.timeout>
+                <redis.maxIdle>10</redis.maxIdle>
+                <redis.minIdle>1</redis.minIdle>
+                <redis.maxTotal>30</redis.maxTotal>
+                <redis.maxWaitMillis>5000</redis.maxWaitMillis>
+                <redis.testOnBorrow>true</redis.testOnBorrow>
+            </properties>
+        </profile>
+    </profiles>
 </project>
