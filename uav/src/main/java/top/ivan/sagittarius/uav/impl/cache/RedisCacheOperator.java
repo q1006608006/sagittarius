@@ -27,6 +27,11 @@ public class RedisCacheOperator<K,V> implements CacheOperator<K,V> {
 
     @Override
     public V removeCache(String space, K key) {
-        return null;
+        V rm = (V) redisTemplate.opsForHash().get(space,key);
+        if(rm != null) {
+            redisTemplate.opsForHash().delete(space,key);
+        }
+        return rm;
     }
+
 }

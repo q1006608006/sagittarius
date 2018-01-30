@@ -7,17 +7,20 @@ import top.ivan.sagittarius.uav.service.TestService;
 import top.ivan.sagittarius.uav.vo.Message;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestMain {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         TestService testService;
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:application-consume.xml");
         TaskController taskController = (TaskController) context.getBean("taskController");
-
+        System.out.println(taskController.putTask("topicDDL", new TaskMessage("tesst")));
+        System.out.println(System.in.read());
         TaskMessage message = taskController.takeTask("topicDDL");
-        taskController.completeTask("topicDDL",message);
+        System.out.println(System.in.read());
+        System.out.println(taskController.completeTask("topicDDL", message));
 /*
         long st = System.currentTimeMillis();
 
