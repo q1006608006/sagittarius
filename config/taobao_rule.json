@@ -1,0 +1,107 @@
+{
+  "location": "tmall",
+  "site": {
+    "head":{
+      "sdf": ["sdfsd"]
+    },
+    "cookie":{
+
+    },
+    "storage": {
+
+    }
+  },
+  "spread": [
+    {
+      "baseUrl": ["https://www.tmall.com/",""],
+      "rule": "1",
+      "maxDeep": 9,
+      "downloader": "default",
+      "isActive": true
+    }],
+  "rules": [
+    {
+      "ruleId": "1",
+      "filters": [
+        {
+          "peek":"json",
+          "defaultValue":"null",
+          "focus": {
+            "type":"css",
+            "target":"script",
+            "interceptor": {
+              "type": "regex",
+              "target": "[\\s\\S]*TShop\\.Setup\\(([\\s\\S]*?)\\);[\\s\\S]*",
+              "key": "$1",
+              "defaultValue":"没有",
+              "interceptor": {
+                "type": "json",
+                "target": "valItemInfo.skuList",
+                "interceptor": {
+                  "type": "list",
+                  "defaultValue":"也没有",
+                  "target": "json[pvs]"
+                }
+              }
+            }
+          }
+        },
+        {
+          "peek": "value",
+          "defaultValue": "null",
+          "focus": {
+            "type": "regex",
+            "target": "[\\s\\S]*TShop\\.Setup\\(([\\s\\S]*?)\\);[\\s\\S]*",
+            "key": "$1",
+            "interceptor": {
+              "type": "json",
+              "target": "valItemInfo.skuList",
+              "interceptor": {
+                "type": "list",
+                "target": "json[pvs]",
+                "interceptor": {
+                  "type": "list",
+                  "key": "{$$}",
+                  "target": "map[value[!json]]",
+                  "interceptor": {
+                    "type": "list",
+                    "target": "json[value]"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "peek": "result",
+          "focus": {
+            "type": "value",
+            "key": "{$value}",
+            "interceptor": {
+              "type": "list",
+              "key": "{$$}",
+              "target": "map[value[!json]]"
+            }
+          }
+        }
+      ],
+      "operator": {
+        "spread": [
+          {
+            "expression": "{$value}",
+            "list": "value",
+            "rule": "1",
+            "downloader": "default",
+            "processor": "",
+            "maxDeep": 9
+          }
+        ],
+        "persist": [
+          {
+            "processor": ""
+          }
+        ]
+      }
+    }
+  ]
+}

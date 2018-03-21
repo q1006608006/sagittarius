@@ -6,9 +6,11 @@ import top.ivan.sagittarius.uav.provider.AbstractTaskProvider;
 import top.ivan.sagittarius.uav.provider.TaskProvider;
 import top.ivan.sagittarius.uav.vo.TaskMessage;
 
+import javax.annotation.Resource;
+
 public abstract class AbsRedisTaskProvider extends AbstractTaskProvider {
 
-    @Autowired
+    @Resource(name = "redisTemplate")
     private RedisTemplate<String,TaskMessage> redisTemplate;
 
     public AbsRedisTaskProvider(Class<? extends TaskProvider> provider) {
@@ -24,6 +26,10 @@ public abstract class AbsRedisTaskProvider extends AbstractTaskProvider {
     @Override
     public boolean putTask(TaskMessage task) {
         return redisTemplate.opsForList().leftPush(getTopicId(),task) > 0;
+    }
+
+    public void setRedisTemplate(RedisTemplate<String,TaskMessage> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
 }

@@ -1,82 +1,53 @@
 {
-  "target":"url",
-  "type":"json",
-  "filters": [
+  "location": "jd",
+  "site": {
+    "interval": 20000,
+    "timeout": 10000
+  },
+  "spread": [
     {
-      "peek":"json",
-      "defaultValue":"null",
-      "focus": {
-        "type":"css",
-        "target":"script",
-        "interceptor": {
-          "type": "regex",
-          "target": "[\\s\\S]*TShop\\.Setup\\(([\\s\\S]*?)\\);[\\s\\S]*",
-          "key": "$1",
-          "defaultValue":"没有",
-          "interceptor": {
-            "type": "json",
-            "target": "valItemInfo.skuList",
-            "interceptor": {
-              "type": "list",
-              "defaultValue":"也没有",
-              "target": "json[pvs]"
-            }
-          }
-        }
-      }
-    },
-    {
-      "peek": "value",
-      "focus": {
-        "type": "regex",
-        "target": "[\\s\\S]*TShop\\.Setup\\(([\\s\\S]*?)\\);[\\s\\S]*",
-        "key": "$1",
-        "interceptor": {
-          "type": "json",
-          "target": "valItemInfo.skuList",
-          "interceptor": {
-            "type": "list",
-            "target": "json[pvs]",
-            "interceptor": {
-              "type": "list",
-              "key": "{$$}",
-              "target": "map[value[!json]]",
-              "interceptor": {
-                "type": "json",
-                "target": "value"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "peek": "result",
-      "focus": {
-        "type": "value",
-        "key": "{$value}",
-        "interceptor": {
-          "type": "list",
-          "key": "{$$}",
-          "target": "map[value[!json]]"
-        }
-      }
-    }/*,
-    {
-      "peek": "result",
-      "focus": {
-        "type": "value",
-        "key": "{$value}",
-        "interceptor": {
-          "type": "list",
-          "target": "map[fin]",
-          "key":"{$$}"
-        }
-      }
-    }*/
+      "baseUrl": ["https://item.jd.com/5758845.html"],
+      "rule": "detail"
+    }
   ],
-  "category":{
-    "location":"taobao",
-    "id":""
-  }
+  "rules": [
+    {
+      "ruleId": "detail",
+      "filters": [
+        {
+          "peek":"productTitle",
+          "focus": {
+            "type":"css",
+            "target":".sku-name",
+            "key": "text()"
+          }
+        },
+        {
+          "peek":"brand",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":"#parameter-brand a",
+            "key": "text()"
+          }
+        },
+        {
+          "peek":"description",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":".parameter2 li",
+            "key": "list:text()"
+          }
+        }
+      ],
+      "operator": {
+        "persist": [
+          {
+            "processor": "test"
+          }
+        ]
+      }
+    }
+  ]
 }

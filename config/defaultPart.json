@@ -1,0 +1,70 @@
+{
+  "focus":[
+    {
+      "type":"css",
+      "class":"top.ivan.sagittarius.screen.parse.focus.CssFocus"
+    },
+    {
+      "type":"json",
+      "class":"top.ivan.sagittarius.screen.parse.focus.JsonFocus"
+    },
+    {
+      "type":"list",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ListFocus"
+    },
+    {
+      "type":"replace",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ReplaceFocus"
+    },
+    {
+      "type":"test",
+      "class":"top.ivan.sagittarius.screen.parse.focus.TestFocus"
+    },
+    {
+      "type":"type",
+      "class":"top.ivan.sagittarius.screen.parse.focus.TypeFocus"
+    },
+    {
+      "type":"xpath",
+      "class":"top.ivan.sagittarius.screen.parse.focus.XpathFocus"
+    },
+    {
+      "type":"value",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ValueFocus"
+    },
+    {
+      "type":"map",
+      "class":"top.ivan.sagittarius.screen.parse.focus.MapFocus"
+    }
+  ],
+  "downloader": [
+    {
+      "alias": "default",
+      "class": "top.ivan.sagittarius.screen.defalutparts.DefaultDownloader"
+    }
+  ],
+  "persist": [
+    {
+      "alias": "test",
+      "class": "top.ivan.sagittarius.screen.defalutparts.TestPersistOperator"
+    },
+    {
+      "alias": "jdItemPersist",
+      "class": "top.ivan.sagittarius.fetch.jd.SearchItemPersist"
+    }
+  ],
+  "spread": [
+    {
+      "alias": "test",
+      "class": "top.ivan.sagittarius.screen.defalutparts.TestPersistOperator"
+    },
+    {
+      "alias": "jdNextSearchSpread",
+      "class": "top.ivan.sagittarius.fetch.jd.NextItemsSpread"
+    },
+    {
+      "alias": "xhrSearchSpread",
+      "class": "top.ivan.sagittarius.fetch.jd.XhrSearchSpread"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "location": "taobao",
+  "site": {
+    "interval": 500,
+    "timeout": 10000,
+    "head": {
+      "User-Agent":["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"]
+    }
+  },
+  "spread": [
+    {
+      "processor": "tbStartSpread",
+      "isActive": true,
+      "activeInterval": 86400000
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "item",
+      "filters": [
+        {
+          "peek": "itemStr",
+          "defaultValue":"{\"some_error\"}",
+          "focus": {
+            "type":"tbs",
+            "target":"g_page_config"
+          }
+        }
+      ],
+      "operator": {
+        "spread": [
+          {
+            "processor": "tbNextPageSpread",
+            "expression": null,
+            "rule": "item",
+            "maxDeep": 300
+          }
+        ],
+        "persist": [
+          {
+            "processor": "tbInsert"
+          }
+        ]
+      }
+    }
+  ]
+}

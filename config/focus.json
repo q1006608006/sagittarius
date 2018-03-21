@@ -1,0 +1,94 @@
+{
+  "focus":[
+    {
+      "type":"css",
+      "class":"top.ivan.sagittarius.screen.parse.focus.CssFocus"
+    },
+    {
+      "type":"json",
+      "class":"top.ivan.sagittarius.screen.parse.focus.JsonFocus"
+    },
+    {
+      "type":"list",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ListFocus"
+    },
+    {
+      "type":"replace",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ReplaceFocus"
+    },
+    {
+      "type":"test",
+      "class":"top.ivan.sagittarius.screen.parse.focus.TestFocus"
+    },
+    {
+      "type":"type",
+      "class":"top.ivan.sagittarius.screen.parse.focus.TypeFocus"
+    },
+    {
+      "type":"xpath",
+      "class":"top.ivan.sagittarius.screen.parse.focus.XpathFocus"
+    },
+    {
+      "type":"value",
+      "class":"top.ivan.sagittarius.screen.parse.focus.ValueFocus"
+    },
+    {
+      "type":"map",
+      "class":"top.ivan.sagittarius.screen.parse.focus.MapFocus"
+    },
+    {
+      "type":"tbs",
+      "beanId": "tbs"
+    }
+  ],
+  "downloader": [
+    {
+      "alias": "default",
+      "class": "top.ivan.sagittarius.screen.defalutparts.DefaultDownloader"
+    }
+  ],
+  "persist": [
+    {
+      "alias": "default",
+      "class": "top.ivan.sagittarius.screen.defalutparts.TestPersistOperator"
+    },
+    //location:taobao
+    {
+      "alias": "tbInsert",
+      "beanId": "tbInsertPersist"
+    },
+    //location:jd
+    {
+      "alias": "jdItemPersist",
+      "beanId": "jdItemPersist"
+    }
+  ],
+  "spread": [
+    {
+      "alias": "default",
+      "class": "top.ivan.sagittarius.screen.defalutparts.DefaultSpreadOperator"
+    },
+    //location:taobao
+    {
+      "alias": "tbStartSpread",
+      "beanId": "tbStartSpread"
+    },
+    {
+      "alias": "tbNextPageSpread",
+      "beanId": "tbNextPageSpread"
+    },
+    //location:jd
+    {
+      "alias": "jdNextSearchSpread",
+      "beanId": "jdNextSearchSpread"
+    },
+    {
+      "alias": "jdXhrSearchSpread",
+      "beanId": "jdXhrSearchSpread"
+    },
+    {
+      "alias": "jdStartSpread",
+      "beanId": "jdStartSpread"
+    }
+  ]
+}

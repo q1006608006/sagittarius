@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="partsManager" class="top.ivan.sagittarius.screen.spring.SpringPartsManager">
+        <property name="configPath" value="config/focus.json"/>
+    </bean>
+    <bean id="seedContextSupporter" class="top.ivan.sagittarius.fetch.taobao.TmallSearchSupporter">
+        <property name="partsManager" ref="partsManager"/>
+    </bean>
+    <bean id="screenListener" class="top.ivan.sagittarius.screen.spring.ScreenListener">
+        <property name="partsManager" ref="partsManager"/>
+        <property name="supporter" ref="seedContextSupporter"/>
+    </bean>
+</beans>

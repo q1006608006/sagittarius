@@ -1,0 +1,121 @@
+{
+  "location": "jd",
+  "site": {
+    "interval": 20000,
+    "timeout": 10000,
+    "head": {
+      "Referer": ["https://search.jd.com/Search"],
+      "User-Agent": ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"]
+    }
+  },
+  "spread": [
+    {
+      "processor": "jdStartSpread",
+      "isActive": true,
+      "activeInterval": 86400000
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "detail",
+      "filters": [
+        {
+          "peek":"productTitle",
+          "focus": {
+            "type":"css",
+            "target":".sku-name",
+            "key": "text()"
+          }
+        },
+        {
+          "peek":"brand",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":"#parameter-brand a",
+            "key": "text()"
+          }
+        },
+        {
+          "peek":"description",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":".parameter2 li",
+            "key": "list:text()"
+          }
+        }
+      ],
+      "operator": {
+        "persist": [
+          {
+            "processor": "test"
+          }
+        ]
+      }
+    },
+    {
+      "ruleId": "search",
+      "filters": [
+        {
+          "peek": "itemList",
+          "focus": {
+            "type": "css",
+            "target": "li",
+            "key": "list:"
+          }
+        },
+        {
+          "peek": "totalCount",
+          "focus": {
+            "type": "css",
+            "target": "script",
+            "interceptor": {
+              "type": "replace",
+              "target": "[\\s\\S]*LogParm\\.result_count=\"(\\d+?)\"[\\s\\S]*",
+              "key": "$1"
+            }
+          }
+        }
+      ],
+      "operator": {
+        "spread": [
+          {
+            "rule": "search",
+            "processor": "jdNextSearchSpread",
+            "maxDeep": 100
+          },
+          {
+            "rule": "search2",
+            "processor": "jdXhrSearchSpread"
+          }
+        ],
+        "persist": [
+          {
+            "processor": "jdItemPersist"
+          }
+        ]
+      }
+    },
+    {
+      "ruleId": "search2",
+      "filters": [
+        {
+          "peek": "itemList",
+          "focus": {
+            "type": "css",
+            "target": "li",
+            "key": "list:"
+          }
+        }
+      ],
+      "operator": {
+        "persist": [
+          {
+            "processor": "jdItemPersist"
+          }
+        ]
+      }
+    }
+  ]
+}

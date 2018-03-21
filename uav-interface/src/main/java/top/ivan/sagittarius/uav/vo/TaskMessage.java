@@ -1,11 +1,17 @@
 package top.ivan.sagittarius.uav.vo;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class TaskMessage extends Message {
+    private static final long serialVersionUID = 5102795445612994178L;
     private boolean complete;
     private String message;
     private String taskId;
+
+    private Map<String,? extends Serializable> taskResult;
 
     public TaskMessage(String message) {
         this.message = message;

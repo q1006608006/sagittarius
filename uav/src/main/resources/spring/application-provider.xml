@@ -5,11 +5,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <dubbo:application name="dubbo_provider"></dubbo:application>
-    <dubbo:registry address="zookeeper://badtheway.xin:2181" check="false" subscribe="false" register=""></dubbo:registry>
+    <dubbo:registry address="zookeeper://gd.badtheway.xin:2181" check="false" subscribe="false" register=""></dubbo:registry>
     <dubbo:protocol name="dubbo" port="20881" />
 
-<!--   test bean: <dubbo:service interface="test.TestService" class="test.TestServiceImpl"/>-->
-    <dubbo:service interface="top.ivan.sagittarius.uav.service.TestService" class="test.TestServiceImpl"/>
     <dubbo:service interface="top.ivan.sagittarius.uav.service.MessageController" class="top.ivan.sagittarius.uav.impl.service.MessageControllerImpl"/>
     <dubbo:service interface="top.ivan.sagittarius.uav.service.TaskController" ref="taskControllerManager"/>
 </beans>

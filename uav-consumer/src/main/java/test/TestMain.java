@@ -1,26 +1,25 @@
 package test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import top.ivan.sagittarius.uav.service.MessageController;
-import top.ivan.sagittarius.uav.service.TaskController;
-import top.ivan.sagittarius.uav.service.TestService;
-import top.ivan.sagittarius.uav.vo.Message;
-import top.ivan.sagittarius.uav.vo.TaskMessage;
+import top.ivan.sagittarius.uav.consumer.TaskSupporterManager;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TestMain {
     public static void main(String[] args) throws InterruptedException, IOException {
-        TestService testService;
+/*        TestService testService;
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:application-consume.xml");
         TaskController taskController = (TaskController) context.getBean("taskController");
         System.out.println(taskController.putTask("topicDDL", new TaskMessage("tesst")));
         System.out.println(System.in.read());
         TaskMessage message = taskController.takeTask("topicDDL");
         System.out.println(System.in.read());
-        System.out.println(taskController.completeTask("topicDDL", message));
+        System.out.println(taskController.completeTask("topicDDL", message));*/
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:application-consume.xml");
+        System.out.println(context.getBean("taskSupporter"));
+        TestSupport support = (TestSupport) context.getBean("testSupport");
+        support.test();
+        TaskSupporterManager.getTaskSupporter("123");
 /*
         long st = System.currentTimeMillis();
 

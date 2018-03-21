@@ -50,4 +50,8 @@ public abstract class AbstractTaskProvider implements TaskProvider,InitializingB
         return timeout;
     }
 
+    public void setTaskControllerManager(TaskControllerManager manager) {
+        this.taskControllerManager = manager;
+    }
+
 }

@@ -1,0 +1,118 @@
+{
+  "location": "tmall",
+  "site": {},
+  "spread": [
+    {
+      "baseUrl": ["http://www.manmanbuy.com/"],
+      "rule": "2",
+      "maxDeep": -1
+    }],
+  "rules": [
+    {
+      "ruleId": "1",
+      "filters": [
+        {
+          "peek":"jsonValues",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":"#J_defaultData",
+            "key": "text()",
+            "interceptor": {
+              "type": "json",
+              "target": "mockPage.100.categoryMainLines"
+            }
+          }
+        },{
+          "peek":"title1",
+          "defaultValue":"error",
+          "focus": {
+            "type":"value",
+            "key": "{$jsonValues}",
+            "interceptor": {
+              "type": "list",
+              "target": "json[title1]",
+              "interceptor": {
+                "type": "list",
+                "target": "@-"
+              }
+            }
+          }
+        },{
+          "peek":"title2",
+          "defaultValue":"error",
+          "focus": {
+            "type":"value",
+            "key": "{$jsonValues}",
+            "interceptor": {
+              "type": "list",
+              "target": "json[title2]",
+              "interceptor": {
+                "type": "list",
+                "target": "@-"
+              }
+            }
+          }
+        },{
+          "peek":"title3",
+          "defaultValue":"error",
+          "focus": {
+            "type":"value",
+            "key": "{$jsonValues}",
+            "interceptor": {
+              "type": "list",
+              "target": "json[title3]",
+              "interceptor": {
+                "type": "list",
+                "target": "@-"
+              }
+            }
+          }
+        }
+      ],
+      "operator": {
+        "persist": [
+          {
+            "processor": "searchPersist"
+          }
+        ]
+      }
+    },
+    {
+      "ruleId": "2",
+      "field": {
+        "a": "123"
+      },
+      "filters": [
+        {
+          "peek":"jsonValues",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":".sub-nav .bd a",
+            "interceptor": {
+              "type":"list",
+              "target":"replace[[\\s\\S]*</i>(.*)</a>[\\s\\S]*]",
+              "key": "$1"
+            }
+          }
+        }, {
+          "peek":"baseUrl",
+          "defaultValue":"error",
+          "focus": {
+            "type":"css",
+            "target":"baseUri()",
+            "key": "{$$url}"
+          }
+        }
+      ],
+      "operator": {
+        "persist": [
+          {
+            "processor": "default"
+          }
+        ]
+      }
+    }
+  ]
+}

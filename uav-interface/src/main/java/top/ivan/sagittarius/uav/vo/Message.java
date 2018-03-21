@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Message implements Serializable {
+
+    private static final long serialVersionUID = 6642823901601451164L;
     private Map<String,String> stores;
 
     public Message() {

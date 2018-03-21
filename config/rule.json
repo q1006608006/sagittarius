@@ -36,6 +36,7 @@
             }
         }
     ],
+    "items": ["id","value"],
     "category":{
         "location":"taobao",
         "id":""

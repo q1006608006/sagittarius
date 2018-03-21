@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="50 seconds" debug="true">
+	<property name="LOG_PATH" value="${webLogPath}" />
+	<appender name="stdoutAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<Target>System.out</Target>
+		<encoder>
+			<pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="defaultAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/default/default</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/default/default.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%line -%msg%n</pattern>
+		</layout>
+	</appender>
+	<appender name="sqlAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/sql/sql</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/sql/sql.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logge%logger{50}:%line- %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="integrationAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/integration/integration</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/integration/integration.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50}:%line -
+				%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="exLogAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/exlog/exlog</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/exlog/exlog.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+			<MaxHistory>60</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<appender name="diffbotExtraAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/diffbotextra/diffbotextra</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/diffbotextra/diffbotextra.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="sensitiveAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/sensitive/sensitive</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/sensitive/sensitive.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%msg%n</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="errorPageAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${LOG_PATH}/errorpage/errorpage</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_PATH}/errorpage/errorpage.%d{yyyy-MM-dd}.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="com.onemt.news.crawler.recycle.mysql.biz.mapper" level="${sqlLogLevel}">
+		<appender-ref ref="sqlAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.recycle.mysql.mapper" level="${sqlLogLevel}">
+		<appender-ref ref="sqlAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.recycle.s3" level="${integrationLogLevel}">
+		<appender-ref ref="integrationAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.recycle.s3" level="${integrationLogLevel}">
+		<appender-ref ref="integrationAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.recycle.business.extract" level="${diffbotLogLevel}">
+		<appender-ref ref="diffbotExtraAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.recycle.business.log" level="${sensitiveLogLevel}">
+		<appender-ref ref="sensitiveAppender" />
+	</logger>
+	<logger name="com.onemt.news.crawler.feeler.text.processor.log" level="${errorPageLevel}">
+		<appender-ref ref="errorPageAppender" />
+	</logger>
+	
+	<logger name="org.springframework" level="${defaultLogLevel}" />
+	<logger name="com.mchange.v2" level="${defaultLogLevel}" />
+	
+	<root level="${defaultLogLevel}">
+		 <appender-ref ref="stdoutAppender" />
+		<appender-ref ref="defaultAppender" />
+		<appender-ref ref="exLogAppender" />
+	</root>
+</configuration>
