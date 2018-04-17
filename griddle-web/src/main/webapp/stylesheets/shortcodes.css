@@ -6140,7 +6140,7 @@ table.product thead tr th:last-child {
 }
 
 .table-wishlist tbody tr td > div.delete {
-	margin-right:48px;
+	margin-right:32px;
 }
 
 .table-wishlist tbody tr td > div.product .image {
@@ -7561,3 +7561,4 @@ ul.brands-tablist li.active {
 	font-weight:500;
 	color:#484848;
 }
+

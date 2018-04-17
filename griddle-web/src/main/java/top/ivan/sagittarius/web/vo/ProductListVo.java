@@ -1,9 +1,9 @@
 package top.ivan.sagittarius.web.vo;
 
 import top.ivan.sagittarius.griddle.persist.pojo.ProductPreview;
+import top.ivan.sagittarius.web.util.ELFunctions;
 
 public class ProductListVo {
-    private static String regex = "(?i)(^https?://)?(?:\\w+\\.)*?(\\w*\\.(?:com\\.cn|cn|com|net))[\\\\/]*.*";
     private String subTitle;
     private String location;
     private String locationPicUrl;
@@ -26,7 +26,7 @@ public class ProductListVo {
         subTitle = subTitle.replaceAll(" ","&nbsp;");
 //        location = preview.getDetailUrl().replaceAll(regex,"$2").replaceAll("\\..*","");
         location = preview.getLocation();
-        locationUrl = "//www." + location + ".com/";
+        locationUrl = ELFunctions.getLocationUrl(location);
         locationPicUrl = locationUrl + "favicon.ico";
     }
 

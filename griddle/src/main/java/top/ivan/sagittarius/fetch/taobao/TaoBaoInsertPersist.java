@@ -14,6 +14,7 @@ import top.ivan.sagittarius.screen.Seed;
 import top.ivan.sagittarius.screen.operator.persist.PersistOperator;
 import top.ivan.sagittarius.screen.parse.focus.JsonFocus;
 import top.ivan.sagittarius.fetch.taobao.TaoBaoPageBean.ModsBean.ItemlistBean.DataBean.AuctionsBean;
+import top.ivan.sagittarius.screen.task.UnExceptMessageException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +30,11 @@ public class TaoBaoInsertPersist implements PersistOperator {
     public void process(Seed item) {
         TaoBaoPageBean pageBean = TaoBaoBeanCheckUtils.fromSeed(item,"itemStr");
         if (pageBean == null) {
-            throw new IllegalArgumentException("null pageBean is un except here");
+            if(null != item.getStorage().get("errReason")) {
+                throw new UnExceptMessageException(item.getStorage().get("errReason"));
+            } else {
+                throw new IllegalArgumentException("null pageBean is un except here");
+            }
         }
         item.setBaggage(pageBean);
         if(TaoBaoBeanCheckUtils.hasProductItems(pageBean)) {
@@ -84,4 +89,5 @@ public class TaoBaoInsertPersist implements PersistOperator {
 
         return view;
     }
+
 }

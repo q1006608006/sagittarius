@@ -2,16 +2,20 @@ package top.ivan.sagittarius.screen.download;
 
 import top.ivan.sagittarius.screen.Site;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class HtmlContext {
+public class HtmlContext implements Serializable {
+    private static final long serialVersionUID = 5659002036516695480L;
     private String body;
     private String baseUrl;
     private String url;
     private Map<String, List<String>> headMap;
     private Map<String,String> cookies;
     private int code;
+
+    public HtmlContext(){}
 
     public HtmlContext(String url,Site site) {
         this.url = url;
@@ -23,6 +27,11 @@ public class HtmlContext {
 /*    public void setCookies(Map<String,String> cookies) {
 
     }*/
+
+    public void setSite(Site site) {
+        this.headMap = site.getHead();
+        this.cookies = site.getCookie();
+    }
 
     public Map<String, String> getCookies() {
         return cookies;

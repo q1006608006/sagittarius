@@ -6,11 +6,15 @@
     <bean id="partsManager" class="top.ivan.sagittarius.screen.spring.SpringPartsManager">
         <property name="configPath" value="config/focus.json"/>
     </bean>
-    <bean id="seedContextSupporter" class="top.ivan.sagittarius.fetch.taobao.TmallSearchSupporter">
+<!--    <bean id="seedContextSupporter" class="top.ivan.sagittarius.fetch.taobao.TmallSearchSupporter">
         <property name="partsManager" ref="partsManager"/>
-    </bean>
+    </bean>-->
     <bean id="screenListener" class="top.ivan.sagittarius.screen.spring.ScreenListener">
         <property name="partsManager" ref="partsManager"/>
-        <property name="supporter" ref="seedContextSupporter"/>
+<!--        <property name="supporter" ref="seedContextSupporter"/>-->
+    </bean>
+
+    <bean id="gmUtil" class="top.ivan.sagittarius.fetch.gm.GmUtils">
+        <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
 </beans>

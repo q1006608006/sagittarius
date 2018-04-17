@@ -4,7 +4,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import top.ivan.sagittarius.screen.context.JsonSeedContext;
 import top.ivan.sagittarius.screen.context.PartsManager;
+import top.ivan.sagittarius.screen.context.SeedContext;
 import top.ivan.sagittarius.screen.defalutparts.DefaultFocusManager;
 import top.ivan.sagittarius.screen.download.Downloader;
 import top.ivan.sagittarius.screen.operator.persist.PersistOperator;
@@ -17,6 +19,7 @@ import top.ivan.sagittarius.screen.utils.FileUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SpringPartsManager implements PartsManager,InitializingBean,ApplicationContextAware {
     private ApplicationContext context;
@@ -108,6 +111,21 @@ public class SpringPartsManager implements PartsManager,InitializingBean,Applica
     @Override
     public SpreadOperator getSpreadOperator(String alias) {
         return spreadMapping.get(alias);
+    }
+
+    @Override
+    public List<SeedContext> getContexts() {
+        return partsBean.getContext().stream()
+                .filter(PartsBean.ContextBean::isLoad)
+                .map(context-> {
+                    try {
+                        SeedContext seedContext = new JsonSeedContext(FileUtil.loadFile(context.getPath()), this);
+                        ((JsonSeedContext) seedContext).setActiveTime(context.getActiveTime());
+                        return seedContext;
+                    } catch (Exception e) {
+                        throw new RuntimeException("can not load file: " + context.getPath());
+                    }
+                }).collect(Collectors.toList());
     }
 
     public static void main(String[] args) throws Exception {

@@ -18,13 +18,16 @@ public class TmallSearchSupporter implements SeedContextSupporter {
     @Override
     public List<SeedContext> getContexts() throws IOException {
         try {
-            SeedContext context = new JsonSeedContext(FileUtil.loadFile("config/taobao.json"),partsManager);
-            return Arrays.asList(context);
-/*            SeedContext tbContext = new JsonSeedContext(FileUtil.loadFile("config/taobao.json"), partsManager);
+/*            SeedContext context = new JsonSeedContext(FileUtil.loadFile("config/taobao.json"),partsManager);
+            return Arrays.asList(context);*/
+            SeedContext tbContext = new JsonSeedContext(FileUtil.loadFile("config/taobao.json"), partsManager);
             SeedContext jdContext = new JsonSeedContext(FileUtil.loadFile("config/jd.json"), partsManager);
-            return Arrays.asList(tbContext, jdContext);*/
-//            SeedContext context = new JsonSeedContext(FileUtil.loadFile("config/jd.json"),partsManager);
-//            return Arrays.asList(context);
+            return Arrays.asList(tbContext, jdContext);
+/*            SeedContext context = new JsonSeedContext(FileUtil.loadFile("config/jd.json"),partsManager);
+            return Arrays.asList(context);*/
+
+/*            SeedContext gmContext = new JsonSeedContext(FileUtil.loadFile("config/gm.json"), partsManager);
+            return Arrays.asList(gmContext);*/
         } catch (Exception e) {
             e.printStackTrace();
             return null;

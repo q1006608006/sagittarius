@@ -18,15 +18,16 @@
                             </c:choose>
                         </h3>
                     </div>
+                    <jsp:include page="sortBox.jsp"/>
                     <div class="wishlist-content">
                         <table class="table-wishlist">
                             <thead>
                             <tr>
-                                <th><img src="images/icons/list-1.png"></th>
-                                <%--<th>评论数</th>--%>
+<%--                                <th><img src="images/icons/list-1.png"></th>
+                                &lt;%&ndash;<th>评论数</th>&ndash;%&gt;
                                 <th><img src="images/icons/cart.png"></th>
                                 <th><img src="images/icons/menu/03.png"></th>
-                                <th></th>
+                                <th></th>--%>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,7 +35,9 @@
                                 <tr>
                                     <td>
                                         <div class="delete">
-                                            <a href="${item.locationUrl}" target="_blank" title="${item.location}"><img src="${item.locationPicUrl}" alt=""></a>
+                                            <a href="${item.locationUrl}" target="_blank" title="${item.location}">
+                                                <img src="${item.locationPicUrl}" alt="" width="16px" height="16px">
+                                            </a>
                                         </div>
                                         <div class="product">
                                             <a href="${item.preview.detailUrl}" target="_blank" title="${item.preview.title}">
@@ -45,9 +48,9 @@
                                                         ${item.subTitle}
                                                 </>
                                             </a>
-                                            <div class="info-text">
+<%--                                            <div class="info-text">
                                                 <span>${item.preview.viewSales}</span>
-                                            </div>
+                                            </div>--%>
                                             <div class="status-product">
                                                 <span>${item.preview.commentCount}人评论</span>
                                             </div>
@@ -72,8 +75,8 @@
                                     </td>
                                     <td>
                                         <div class="add-cart" style='width: 150px;'>
-                                            <a href="#" title="">
-                                                <img src="images/icons/add-cart.png" alt="">Add to Cart
+                                            <a href="item?id=${item.preview.id}" title="">
+                                                <img src="images/icons/add-cart.png" alt="">查看详情
                                             </a>
                                         </div>
                                     </td>

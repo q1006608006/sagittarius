@@ -25,11 +25,13 @@ public class ProductTraceVo extends ProductPreview {
         setNid(preview.getNid());
         setNick(preview.getNick());
         setItemLoc(preview.getItemLoc());
-        setCommentCount(preview.getCommentCount());
+        setCommentCount(preview.getCommentCount() == null ? 0 : preview.getCommentCount());
         setReduce(preview.getViewPrice());
         setOldPrice(trace.getPrice().subtract(trace.getPriceImprove()));
         if(dividable(getOldPrice())) {
             setDisCount(trace.getPriceImprove().negate().divide(getOldPrice(),2,BigDecimal.ROUND_UP));
+        } else {
+            setDisCount(BigDecimal.ONE);
         }
         setCurPrice(preview.getViewPrice());
     }

@@ -1,18 +1,54 @@
 package top.ivan.sagittarius.fetch;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import org.apdplat.word.WordSegmenter;
+import org.apdplat.word.dictionary.DictionaryFactory;
+import org.apdplat.word.segmentation.PartOfSpeech;
+import org.apdplat.word.segmentation.Word;
+import org.apdplat.word.tagging.PartOfSpeechTagging;
+import org.apdplat.word.util.WordConfTools;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class TestStart {
-    public static void main(String[] args) throws IOException {
-        Document doc = Jsoup.connect("https://search.jd.com/s_new.php?keyword=%E6%95%B0%E7%A0%81&enc=utf-8&qrst=1&rt=1&stop=1&vt=2&scrolling=y&log_id=1521553056.48426&tpl=1_M")
-                .header("Referer","https://search.jd.com/Search")
-                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36")
-                .get();
-
-        System.out.println(doc.select("li"));
+    public static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(8); //线程池
+            private static ThreadPoolExecutor e2 = new ThreadPoolExecutor(8, 8,
+                                      0L,TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>(10));
+    public static void main(String[] args) throws IOException, InterruptedException {
+/*        for (int i = 0; i < 90; i++) {
+            final int myI = i;
+*//*            while (executor.getActiveCount() >= 8) {
+                synchronized (executor) {
+                    executor.wait();
+                }
+            }*//*
+            e2.execute(() -> {
+                System.out.println("my I is " + myI + " and active count is " + executor.getActiveCount());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (executor) {
+                    executor.notify();
+                }
+            });
+        };
+        System.out.println("active count is " + executor.getActiveCount());
+        System.out.println(executor.awaitTermination(10, TimeUnit.SECONDS));
+        System.out.println("now active count is " + executor.getActiveCount());
+        executor.execute(()-> {
+            System.out.println("end Run");
+        });*/
 
     }
+
 }

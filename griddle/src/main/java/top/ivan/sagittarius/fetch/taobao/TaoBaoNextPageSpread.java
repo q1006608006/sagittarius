@@ -22,11 +22,9 @@ public class TaoBaoNextPageSpread implements SpreadOperator {
                 nextUrl = TaoBaoBeanCheckUtils.hasNextPage(bean) ?
                         TaoBaoBeanCheckUtils.nextUrl(nextUrl, TaoBaoBeanCheckUtils.nextItemPagePos(bean)) :
                         TaoBaoBeanCheckUtils.nextUrl(nextUrl, TaoBaoBeanCheckUtils.nextInnerPagePos(bean));
-                if(null != nextUrl) {
-                    Seed newSeed = seed.newSeed(nextUrl, seed.getSpread());
-                    redisSetOperator.add(listKey,newSeed);
-                    return 1;
-                }
+                Seed newSeed = seed.newSeed(nextUrl, seed.getSpread());
+                redisSetOperator.add(listKey,newSeed);
+                return 1;
             }
             System.out.println(seed.toString() + " has 0 items,throw it");
             return 0;

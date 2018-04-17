@@ -36,3 +36,23 @@ orderBy
 limit
 ===
     limit #start#,#count#
+    
+takeYesterdayTrace
+===
+    SELECT
+    	#page("*")#
+    FROM
+    	trace t1,
+    	(
+    		SELECT
+    			max(id) AS maxId,
+    			min(id) AS minId
+    		FROM
+    			trace
+    		WHERE
+    			createTime > DATE_ADD(CURDATE(),interval -1 day)
+    		AND createTime < CURDATE()
+    	) t2
+    WHERE
+    	t1.id < t2.maxId
+    AND t1.id > t2.minId

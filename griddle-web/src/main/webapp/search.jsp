@@ -8,7 +8,7 @@
     <!-- Basic Page Needs -->
     <meta charset="UTF-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <title>Wishlist</title>
+    <title>search</title>
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
 
     <!-- Theme style -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style_bak.css">
 
     <!-- Reponsive -->
     <link rel="stylesheet" type="text/css" href="stylesheets/responsive.css">
@@ -34,6 +34,8 @@
     <hr/>
 
     <jsp:include page="jsp/productList.jsp"/>
+
+    <jsp:include page="jsp/pageBox.jsp"/>
 
     <jsp:include page="jsp/footer.jsp"/>
 </div>

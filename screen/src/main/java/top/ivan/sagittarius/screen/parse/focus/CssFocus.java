@@ -35,10 +35,11 @@ public class CssFocus implements Focus {
     public String peek(String src, String target, String key) throws Exception {
         Document doc = Jsoup.parse(src);
         Elements elements = doc.select(target);
+        if(elements.size() == 0) {
+            return null;
+        }
         if("ignore()".equals(key)) {
-            if(null != elements) {
-                elements.remove();
-            }
+            elements.remove();
             return doc.outerHtml();
         }
         return anyKey(elements, key);

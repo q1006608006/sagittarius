@@ -1,7 +1,7 @@
 {
   "location": "jd",
   "site": {
-    "interval": 20000,
+    "interval": 2000,
     "timeout": 10000,
     "head": {
       "Referer": ["https://search.jd.com/Search"],
@@ -83,7 +83,7 @@
           {
             "rule": "search",
             "processor": "jdNextSearchSpread",
-            "maxDeep": 100
+            "maxDeep": 6
           },
           {
             "rule": "search2",

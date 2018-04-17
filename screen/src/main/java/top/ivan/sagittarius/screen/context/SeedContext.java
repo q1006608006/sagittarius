@@ -19,4 +19,6 @@ public interface SeedContext {
     Map<String,Rule> getRuleMap();
 
     List<SpreadWallet> getActiveSpreads();
+
+    long getActiveTime();
 }

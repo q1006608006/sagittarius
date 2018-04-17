@@ -18,7 +18,7 @@ import java.util.Map;
 public class DefaultDownloader implements Downloader {
 
     @Override
-    public void load(Seed seed, Callback callback) throws IOException {
+    public Seed load(Seed seed) throws IOException {
 
         HtmlContext context = new HtmlContext(seed.getUrl(),seed.getSite());
         context = load(context,seed.getSite().getTimeout());
@@ -28,9 +28,7 @@ public class DefaultDownloader implements Downloader {
         seed.setContext(context);
         seed.setBody(context.getBody());
         seed.setBaseUrl(context.getBaseUrl());
-        if(null != callback) {
-            callback.callback(seed);
-        }
+        return seed;
     }
 
     private String listString(List<String> list) {
@@ -43,6 +41,11 @@ public class DefaultDownloader implements Downloader {
 
     @Override
     public HtmlContext load(HtmlContext post,long timeout) throws IOException {
+        if(null == post) {
+            HtmlContext context = new HtmlContext(null,new Site());
+            context.setBody("xxx");
+            return context;
+        }
         Connection connection = Jsoup.connect(post.getUrl()).timeout(Long.valueOf(timeout).intValue());
         Map<String,List<String>> header = post.getHeadMap();
         if(header != null) {

@@ -25,6 +25,13 @@
             "type":"tbs",
             "target":"g_page_config"
           }
+        },
+        {
+          "peek": "errReason",
+          "focus": {
+            "type": "css",
+            "target": "#err"
+          }
         }
       ],
       "operator": {
@@ -33,7 +40,7 @@
             "processor": "tbNextPageSpread",
             "expression": null,
             "rule": "item",
-            "maxDeep": 300
+            "maxDeep": 11
           }
         ],
         "persist": [

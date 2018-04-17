@@ -32,8 +32,15 @@ public class ScreenListener implements ApplicationContextAware {
 
     public void start() throws Exception {
         garden = new Garden(partsManager);
-        for (SeedContext context : supporter.getContexts()) {
-            garden.hold(context);
+        if(null != supporter) {
+            for (SeedContext context : supporter.getContexts()) {
+                garden.hold(context);
+            }
+        }
+        if(null != partsManager.getContexts()) {
+            for (SeedContext context : partsManager.getContexts()) {
+                garden.hold(context);
+            }
         }
         garden.start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> garden.shutdown()));

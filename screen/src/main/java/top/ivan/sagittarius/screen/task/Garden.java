@@ -17,17 +17,16 @@ import top.ivan.sagittarius.screen.operator.spread.SpreadWallet;
 import top.ivan.sagittarius.screen.parse.Griddle;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class Garden implements SpreadHandle {
     private static Logger logger = LogManager.getLogger(Garden.class);
-    private static ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10); //线程池
+    private static final int maxThreadActive = 10;
+    private static final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(maxThreadActive); //线程池
 
-    {
+    static {
         executor.setKeepAliveTime(1, TimeUnit.DAYS);
     }
     //组件管理器
@@ -45,7 +44,7 @@ public class Garden implements SpreadHandle {
     //默认的下载器
     private Downloader downloader;
     //最大重试次数
-    private int maxFailedCount = 5;
+    private final int maxFailedCount = 5;
     //重试映射表
     private Map<Seed, Integer> errorMap = new ConcurrentHashMap<>();
     private boolean isStart = false;
@@ -79,9 +78,6 @@ public class Garden implements SpreadHandle {
         if (isStart) {
             throw new RuntimeException("double running!");
         }
-        Thread debugThread = new Thread(()-> {
-
-        });
 //        startHoldThread();
         Collection<SeedContext> contexts = contextMap.values();
         for (SeedContext context : contexts) {
@@ -89,32 +85,47 @@ public class Garden implements SpreadHandle {
         }
     }
 
+    private BlockingQueue<Seed> acceptQueue = new LinkedBlockingDeque<>(10);
     /**
      * 任务执行入口
      * @param seed
      */
     @Override
-    public void accept(Seed seed) {
+    public void accept(Seed seed) throws InterruptedException {
+        if (null == seed) {
+            return;
+        }
+        Thread.sleep(1); //休眠1ms，使虚拟机能优先处理正在等待的线程
+        if (isAsync) {
+            while (executor.getActiveCount() >= maxThreadActive) {
+                synchronized (executor) {
+                    executor.wait(60 * 1000);
+                }
+            }
+            executor.execute(() -> { //异步执行
+                this.acceptInThread(seed);
+            });
+        } else {
+            this.acceptInThread(seed);
+        }
+    }
+
+    private void acceptInThread(Seed seed) {
         if (null == seed) {
             return;
         }
         SpreadWallet wallet = seed.getSpread();
         Downloader downloader = wallet.getDownloader() == null ? this.downloader : manager.getDownLoader(wallet.getDownloader());
-        if (isAsync) {
-            executor.execute(() -> { //异步执行
-                try {
-                    download(seed, downloader, callback,true);
-                } catch (IOException e) {
-                    onFailed(seed, e);
+
+        try {
+            download(seed, downloader, callback);
+            if(isAsync) {
+                synchronized (executor) {
+                    executor.notifyAll();
                 }
-            });
-        } else {
-            try {
-                download(seed, downloader, null,false);
-                develop(seed);
-            } catch (IOException e) {
-                onFailed(seed, e);
             }
+        } catch (IOException | UnExceptMessageException e) {
+            onFailed(seed, e);
         }
     }
 
@@ -122,7 +133,7 @@ public class Garden implements SpreadHandle {
      * 下载之后的解析及持久化和扩散操作
      * @param seed
      */
-    public void develop(Seed seed) {
+    public void develop(Seed seed) throws UnExceptMessageException {
         if (null == seed) {
             return;
         }
@@ -142,8 +153,10 @@ public class Garden implements SpreadHandle {
             }
             persist.process(seed, seed.getSpread().getRule().getPersistList()); //持久化
             spread.spread(seed, seed.getSpread().getRule().getSpreadList(), contextMap.get(seed.getLocation())); //扩散
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (UnExceptMessageException e) {
+            throw e;
+        }catch (Exception e) {
+            logger.error(e);
         }
     }
 
@@ -185,16 +198,12 @@ public class Garden implements SpreadHandle {
      * @param seed
      * @param downloader
      * @param callback
-     * @param isAsync
      * @throws IOException
      */
-    private void download(Seed seed, Downloader downloader, Callback callback,boolean isAsync) throws IOException {
+    private void download(Seed seed, Downloader downloader, Callback callback) throws IOException {
         if (!seed.isDownloadable()) {
-            if (isAsync) {
-                callback.callback(seed);
-            } else {
-                return;
-            }
+            callback.callback(seed);
+            return;
         }
         long interval = seed.getSite().getInterval();  //向服务器发起请求间隔
         if (interval > 0) {
@@ -218,11 +227,14 @@ public class Garden implements SpreadHandle {
                 }
                 timeLock.addLockMillions(interval);
             }
-            downloader.load(seed, callback); //开始下载
+            seed = downloader.load(seed); //开始下载
+            callback.callback(seed);
         } else {
-            downloader.load(seed, callback);
+            seed = downloader.load(seed);
+            callback.callback(seed);
         }
     }
+
 
     /**
      * 失败重试
@@ -238,7 +250,7 @@ public class Garden implements SpreadHandle {
             seed.setDownloadable(true);
             logger.error(String.format("load %s failed,caused by: [%s],start %d times retry...", seed.toString(), throwable.getMessage(), failedTime));
 //            spread.spread(seed, Collections.singletonList(seed.getSpread()), contextMap.get(seed.getLocation()));
-            this.accept(seed);
+            this.acceptInThread(seed);
         }
     }
 

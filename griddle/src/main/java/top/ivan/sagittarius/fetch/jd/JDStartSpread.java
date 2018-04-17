@@ -29,7 +29,7 @@ public class JDStartSpread implements PositiveSpreadOperator,ContextAware {
             Seed seed = new Seed(context,
                     "https://search.jd.com/s_new.php?keyword=" +
                             URL.encode(key) +
-                            "&enc=utf-8&qrst=1&rt=1&stop=1&vt=2&scrolling=y&log_id=1521553056.48426&tpl=1_M",
+                            "&enc=utf-8&qrst=1&rt=1&stop=1&vt=2&scrolling=y&log_id=1523672857.48426&tpl=1_M",
                     "search");
             this.seedQueue.add(seed);
         }

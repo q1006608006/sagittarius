@@ -1,8 +1,10 @@
 package top.ivan.sagittarius;
 
 import org.jsoup.Jsoup;
+import org.springframework.beans.factory.config.YamlMapFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import top.ivan.sagittarius.fetch.gm.GmUtils;
 import top.ivan.sagittarius.griddle.persist.dao.ProductPreviewDao;
 import top.ivan.sagittarius.screen.spring.ScreenListener;
 
@@ -12,6 +14,7 @@ public class SearchScript {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application-*.xml", "classpath*:spring/application-*.xml");
         listener = (ScreenListener) context.getBean("screenListener");
         System.out.println(listener + " " + System.currentTimeMillis());
+//        System.out.println(GmUtils.redisTemplate);
         listener.start();
 //        ProductPreviewDao productPreviewDao = (ProductPreviewDao) context.getBean("productPreviewDao");
 //        System.out.println(productPreviewDao.all(0,10));

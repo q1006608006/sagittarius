@@ -18,4 +18,5 @@ public interface TraceDao extends BaseMapper<Trace> {
 
     List<Trace> getProductTrace(@Param("productId") long id,@Param("interval") int dayInterval);
 
+    void takeYesterdayTrace(PageQuery<Trace> pageQuery);
 }

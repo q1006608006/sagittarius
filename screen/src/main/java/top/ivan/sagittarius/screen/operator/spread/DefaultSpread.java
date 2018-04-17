@@ -160,7 +160,7 @@ public class DefaultSpread implements Spread {
                         }
                         handle.accept(seed);
                     } catch (InterruptedException e) {
-//                            e.printStackTrace();
+                        e.printStackTrace();
                         break;
                     }
                 }

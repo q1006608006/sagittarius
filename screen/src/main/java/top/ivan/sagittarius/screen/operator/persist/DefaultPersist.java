@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.ivan.sagittarius.screen.Seed;
 import top.ivan.sagittarius.screen.context.PartsManager;
+import top.ivan.sagittarius.screen.task.UnExceptMessageException;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class DefaultPersist implements Persist {
     }
 
     @Override
-    public void process(Seed item, List<PersistWallet> wallets) {
+    public void process(Seed item, List<PersistWallet> wallets) throws UnExceptMessageException {
         if (null == wallets) {
             return;
         }
@@ -29,6 +30,8 @@ public class DefaultPersist implements Persist {
                 if(operator.validate(item)) {
                     operator.process(item);
                 }
+            } catch (UnExceptMessageException e) {
+                throw e;
             } catch (Throwable t) {
                 logger.error(String.format("an error threw while process: %s with operator: %s",item,operator),t);
             }

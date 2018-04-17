@@ -1,6 +1,10 @@
 package test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import top.ivan.sagittarius.screen.Seed;
+import top.ivan.sagittarius.screen.Site;
+import top.ivan.sagittarius.screen.download.Downloader;
+import top.ivan.sagittarius.screen.download.HtmlContext;
 import top.ivan.sagittarius.uav.consumer.TaskSupporterManager;
 
 import java.io.IOException;
@@ -16,10 +20,17 @@ public class TestMain {
         System.out.println(System.in.read());
         System.out.println(taskController.completeTask("topicDDL", message));*/
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:application-consume.xml");
-        System.out.println(context.getBean("taskSupporter"));
-        TestSupport support = (TestSupport) context.getBean("testSupport");
-        support.test();
-        TaskSupporterManager.getTaskSupporter("123");
+
+        Downloader downloader = (Downloader) context.getBean("cloudDownloader");
+        System.out.println(downloader);
+        Seed seed = new Seed();
+        seed.setUrl("https://www.baidu.com");
+        seed.setSite(new Site());
+        System.out.println(downloader.load(seed).getBody());
+/*        System.out.println("c1=======================");
+        System.out.println(context1.getBody());
+        System.out.println("c2======================");
+        System.out.println(c2.getBody());*/
 /*
         long st = System.currentTimeMillis();
 

@@ -18,6 +18,8 @@
         <module>griddle-database</module>
         <module>griddle-web</module>
         <module>griddle-test</module>
+        <module>griddle-common</module>
+        <module>griddle-cloud</module>
     </modules>
 
     <properties>

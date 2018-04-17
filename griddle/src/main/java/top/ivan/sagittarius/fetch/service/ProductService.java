@@ -7,6 +7,7 @@ import top.ivan.sagittarius.griddle.persist.dao.TraceDao;
 import top.ivan.sagittarius.griddle.persist.pojo.ProductPreview;
 import top.ivan.sagittarius.griddle.persist.pojo.Trace;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -27,9 +28,15 @@ public class ProductService {
         int insertCount = 0,updateCount = 0;
         for (ProductPreview preview : previews) {
             try {
-                ProductPreview old = null;
-                old = previewDao.byNid(preview.getNid());
+                ProductPreview old = new ProductPreview();
+                old.setLocation(preview.getLocation());
+                old.setNid(preview.getNid());
+                old = previewDao.templateOne(old);
+                validate(old,preview);
                 if (null == old) {
+                    if(preview.getViewPrice().compareTo(BigDecimal.ZERO) <= 0) {
+                        preview.setViewPrice(BigDecimal.valueOf(-1));
+                    }
                     previewDao.insert(preview);
                     insertCount++;
                 } else if (updateAble(preview, old)) {
@@ -50,6 +57,17 @@ public class ProductService {
 
     private static boolean insertAble(Trace t) {
         return t.getCommentImprove() != 0 || t.getDealImprove() != 0 || t.getPriceImprove().doubleValue() != 0;
+    }
+
+    private static void validate(ProductPreview ... previews) {
+        for (ProductPreview preview : previews) {
+            if (null == preview) {
+                continue;
+            }
+            if(preview.getCommentCount() == null) {
+                preview.setCommentCount(0);
+            }
+        }
     }
 
     private static boolean updateAble(ProductPreview cur,ProductPreview old) {

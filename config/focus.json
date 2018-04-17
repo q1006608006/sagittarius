@@ -61,6 +61,11 @@
     {
       "alias": "jdItemPersist",
       "beanId": "jdItemPersist"
+    },
+    //location:gm
+    {
+      "alias": "gmPersist",
+      "beanId": "gmPersist"
     }
   ],
   "spread": [
@@ -89,6 +94,29 @@
     {
       "alias": "jdStartSpread",
       "beanId": "jdStartSpread"
+    },
+    //location:gm
+    {
+      "alias": "gmSpread",
+      "beanId": "gmSpread"
+    }
+  ],
+  "context": [
+    /*"config/jd.json","config/taobao.json"*/
+    {
+      "path": "config/jd.json",
+      "activeTime": "00:00:00",
+      "isLoad": true
+    },
+    {
+      "path": "config/taobao.json",
+      "activeTime": "00:00:00",
+      "isLoad": true
+    },
+    {
+      "path": "config/gm.json",
+      "activeTime": "00:00:00",
+      "isLoad": true
     }
   ]
 }

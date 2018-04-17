@@ -23,9 +23,15 @@
             <div class="col-md-6">
                 <div class="top-search">
                     <form action="search" method="get" class="form-search" accept-charset="utf-8">
+                        <div class="cat-wrap">
+                            <select name="model">
+                                <option value="MaxMatch">模糊查找</option>
+                                <option value="AutoSegWord">智能分词</option>
+                                <option value="ForceKeyWord">关键字</option>
+                            </select>
+                        </div><!-- /.cat-wrap -->
                         <div class="box-search">
-                            <input type="text" name="search" placeholder="Search what you looking for ?" value="${requestScope.search}">
-                            <input type="hidden" name="size" value="20">
+                            <input type="text" name="searchLine" placeholder="Search what you looking for ?" value="${requestScope.searchLine}">
                             <span class="btn-search">
                                 <button type="submit" class="waves-effect"><img src="images/icons/search.png" alt=""></button>
                             </span>

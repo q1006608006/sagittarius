@@ -16,21 +16,21 @@
             <div class="col-md-8">
                 <div class="banner-box one-half">
                     <div class="inner-box">
-                        <a href="#" title="">
-                            <img src="images/banner_boxes/home-01.jpg" alt="">
+                        <a href="${requestScope.events[0].link}" title="${requestScope.events[0].title}">
+                            <img src="${requestScope.events[0].picUrl}" alt="" id="event_1">
                         </a>
                     </div><!-- /.inner-box -->
                     <div class="inner-box">
-                        <a href="#" title="">
-                            <img src="images/banner_boxes/home-05.jpg" alt="">
+                        <a href="${requestScope.events[1].link}" title="${requestScope.events[1].title}">
+                            <img src="${requestScope.events[1].picUrl}" alt="" id="event_2">
                         </a>
                     </div><!-- /.inner-box -->
                     <div class="clearfix"></div>
                 </div><!-- /.box -->
                 <div class="banner-box">
                     <div class="inner-box">
-                        <a href="#" title="">
-                            <img src="images/banner_boxes/home-04.jpg" alt="">
+                        <a href="${requestScope.events[2].link}" title="${requestScope.events[2].title}">
+                            <img src="${requestScope.events[2].picUrl}" alt="" id="event_3">
                         </a>
                     </div>
                 </div><!-- /.box -->
@@ -38,8 +38,8 @@
             <div class="col-md-4">
                 <div class="banner-box">
                     <div class="inner-box">
-                        <a href="#" title="">
-                            <img src="images/banner_boxes/home-03.jpg" alt="">
+                        <a href="${requestScope.events[3].link}" title="${requestScope.events[3].title}">
+                            <img src="${requestScope.events[3].picUrl}" alt="" id="event_4">
                         </a>
                     </div><!-- /.inner-box -->
                 </div><!-- /.box -->
